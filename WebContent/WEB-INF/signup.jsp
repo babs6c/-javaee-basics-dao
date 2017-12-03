@@ -21,6 +21,7 @@
 <div class="reg-w3">
 <div class="w3layouts-main">
 	<h2>Inscription</h2>
+		<c:if test="${ !empty problemes }"><span class="erreur">${ problemes }</span></c:if>
 		<form action="Inscription" method="post" enctype="multipart/form-data"> 
 			<input type="text" required="" class="ggg" name="nom" placeholder="NOM" 
 			value="<c:if test="${ !empty erreurs }"><c:out value="${ utilisateur.nom }"/></c:if>">

@@ -54,7 +54,15 @@ public class ConnexionForm {
 		
 		if(erreurs.isEmpty())
 		{
-			utilisateur=utilisateurDao.trouver(email, hasherEnMD5(pass));
+			try
+			{
+				utilisateur=utilisateurDao.trouver(email, hasherEnMD5(pass));
+			}
+			catch(Exception e)
+			{
+				request.setAttribute("problemes", e.getMessage());
+			}
+			
 			if(utilisateur==null)
 			{
 						erreurs.put("credentials","Verifiez vos saisies !");

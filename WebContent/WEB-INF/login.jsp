@@ -21,6 +21,7 @@
 <div class="log-w3">
 <div class="w3layouts-main">
 	<h2>Se connecter</h2>
+	<c:if test="${ !empty problemes }"><span class="erreur">${ problemes }</span></c:if>
 		<form action="Login" method="post">
 			<input type="email" value="<c:choose><c:when test="${ !empty cookie_email }">${ cookie_email }</c:when><c:otherwise><c:out value="${ membre.erreurs.emailvalue }"/></c:otherwise></c:choose>" 
 			class="ggg" name="email" placeholder="E-MAIL" required>

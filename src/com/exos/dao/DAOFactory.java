@@ -69,14 +69,16 @@ public class DAOFactory {
 	/* Méthode chargée de fournir une connexion à la base de données */
 	public Connection getConnection() 
 	{
-		
+		Connection connexion=null;
 		try {
-			return DriverManager.getConnection(url,username,password);
+			connexion=DriverManager.getConnection(url,username,password);
+			connexion.setAutoCommit(false);
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			throw new DAOConfigurationException("La connexion a échoué",e);
 		}
-		
+		return connexion;
 	}
 	
 	/*

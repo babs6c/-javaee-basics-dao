@@ -43,7 +43,7 @@ public class UtilisateurDaoImpl implements UtilisateurDao{
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			throw new DAOException(e);
+			throw new DAOException("Impossible de communiquer avec la base de données");
 		}
 		finally {
 			fermeturesSilencieuses(resultat,preparedStatement,connexion);
@@ -69,7 +69,7 @@ public class UtilisateurDaoImpl implements UtilisateurDao{
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			throw new DAOException(e);
+			throw new DAOException("Impossible de communiquer avec la base de données");
 		}
 		finally {
 			fermeturesSilencieuses(resultat,preparedStatement,connexion);
@@ -87,9 +87,18 @@ public class UtilisateurDaoImpl implements UtilisateurDao{
 			connexion=daoFactory.getConnection();
 			preparedStatement=DAOUtilitaire.initialisationRequetePreparee(connexion, SQL_ADD_MEMBER, false, utilisateur.getNom(),utilisateur.getEmail(),utilisateur.getPass(),utilisateur.getPhoto());
 			preparedStatement.executeUpdate();
+			connexion.commit();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			throw new DAOException(e);
+			if(connexion!=null)
+			{
+				try {
+					connexion.rollback();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+			throw new DAOException("Impossible de communiquer avec la base de données");
 		}
 		finally {
 			fermeturesSilencieuses(preparedStatement,connexion);

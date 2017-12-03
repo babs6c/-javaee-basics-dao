@@ -102,7 +102,15 @@ public class InscriptionForm {
 		if(erreurs.isEmpty())
 		{
 			traitementFichier(part,utilisateur);
-			utilisateurDao.add(utilisateur);
+			try
+			{
+				utilisateurDao.add(utilisateur);
+			}
+			catch(Exception e)
+			{
+				erreurs.put("Whateve","Hehe");
+				request.setAttribute("problemes", e.getMessage());
+			}
 		
 		}
 		
