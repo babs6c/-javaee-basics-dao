@@ -7,6 +7,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import com.jolbox.bonecp.BoneCP;
+import com.jolbox.bonecp.BoneCPConfig;
+
 public class DAOFactory {
 	
 	private static final String FICHIER_PROPERTIES       = "/com/exos/dao/dao.properties";
@@ -19,11 +22,11 @@ public class DAOFactory {
 	private String username;
 	private String password;
 	
-	DAOFactory(String url,String username,String password)
+	BoneCP connectionPool=null;
+	
+	DAOFactory(BoneCP connectionPool)
 	{
-		this.url=url;
-		this.username=username;
-		this.password=password;
+		this.connectionPool=connectionPool;
 	}
 	
 	/*
@@ -37,6 +40,8 @@ public class DAOFactory {
         String driver;
         String username;
         String password;
+    		BoneCP connectionPool=null;
+
         
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         InputStream fichierProperties = classLoader.getResourceAsStream( FICHIER_PROPERTIES );
@@ -61,7 +66,20 @@ public class DAOFactory {
 			 throw new DAOConfigurationException( "Le driver est introuvable dans le classpath.", e );
 		}
 		
-		DAOFactory instance=new DAOFactory(url,username,password);
+		try {
+		BoneCPConfig config=new BoneCPConfig();
+		config.setJdbcUrl(url);
+		config.setUsername(username);
+		config.setPassword(password);
+		config.setPartitionCount(2);
+		config.setMinConnectionsPerPartition(5);
+		config.setMaxConnectionsPerPartition(10);
+		connectionPool = new BoneCP(config);
+		} catch (SQLException e) {
+			throw new DAOConfigurationException("Erreur de configuration du pool de connexions.",e);
+		}
+		DAOFactory instance=new DAOFactory(connectionPool);
+		
 		return instance;
 		
 	}
@@ -71,7 +89,7 @@ public class DAOFactory {
 	{
 		Connection connexion=null;
 		try {
-			connexion=DriverManager.getConnection(url,username,password);
+			connexion=connectionPool.getConnection();
 			connexion.setAutoCommit(false);
 			
 		} catch (SQLException e) {
