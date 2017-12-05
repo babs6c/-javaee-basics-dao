@@ -14,7 +14,7 @@ import com.exos.dao.UtilisateurDao;
 /**
  * Servlet implementation class EmailAvailability
  */
-
+@WebServlet(urlPatterns="/EmailAvailability/*")
 public class EmailAvailability extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private UtilisateurDao utilisateurDao;
