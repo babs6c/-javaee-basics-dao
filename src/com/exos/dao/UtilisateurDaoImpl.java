@@ -17,6 +17,7 @@ public class UtilisateurDaoImpl implements UtilisateurDao{
 	private final static String SQL_LISTE_MEMBERS="select * from membres";
 	private final static String SQL_ADD_MEMBER="insert into membres(nom,email,pass,photo,date_inscription) values(?,?,?,?,NOW())";
 	private final static String SQL_FIND_MEMBER="select * from membres where email=? and pass=?";
+	private final static String SQL_FIND_MEMBER_BY_EMAIL="select * from membres where email=?";
 
 	
 	UtilisateurDaoImpl(DAOFactory daoFactory)
@@ -77,7 +78,35 @@ public class UtilisateurDaoImpl implements UtilisateurDao{
 		
 		return utilisateur;
 	}
-
+	
+	
+	@Override
+	public Utilisateur trouver(String email) throws DAOException {
+		Utilisateur utilisateur=null;
+		Connection connexion=null;
+		PreparedStatement preparedStatement=null;
+		ResultSet resultat=null;
+		
+		try {
+			connexion=daoFactory.getConnection();
+			preparedStatement=initialisationRequetePreparee(connexion, SQL_FIND_MEMBER_BY_EMAIL, false,email);
+			resultat=preparedStatement.executeQuery();
+			if(resultat.next())
+			{
+				utilisateur=map(resultat);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			throw new DAOException("Impossible de communiquer avec la base de données");
+		}
+		finally {
+			fermeturesSilencieuses(resultat,preparedStatement,connexion);
+		}
+		
+		return utilisateur;
+	}
+	
+	
 	@Override
 	public void add(Utilisateur utilisateur) throws DAOException {
 		Connection connexion=null;

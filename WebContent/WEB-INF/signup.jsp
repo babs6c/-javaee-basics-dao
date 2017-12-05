@@ -16,35 +16,38 @@
 <link href="css/font-awesome.css" rel="stylesheet"> 
 <!-- //font-awesome icons -->
 <script src="js/jquery2.0.3.min.js"></script>
+<script src="js/validate.js"></script>
+<script src="js/validations.js"></script>
 </head>
 <body>
 <div class="reg-w3">
 <div class="w3layouts-main">
 	<h2>Inscription</h2>
 		<c:if test="${ !empty problemes }"><span class="erreur">${ problemes }</span></c:if>
-		<form action="Inscription" method="post" enctype="multipart/form-data"> 
-			<input type="text" required="" class="ggg" name="nom" placeholder="NOM" 
+		<form action="Inscription" id="signup" method="post" enctype="multipart/form-data"> 
+			<input type="text"  class="ggg" name="nom" placeholder="NOM" 
 			value="<c:if test="${ !empty erreurs }"><c:out value="${ utilisateur.nom }"/></c:if>">
 			<c:if test="${ !empty erreurs.nom }">
 			<span class="erreur">${ erreurs.nom }</span>
 			</c:if>
-			<input type="email" required="" class="ggg" name="email" placeholder="E-MAIL" 
+			<input type="email"  class="ggg" id="email" name="email" placeholder="E-MAIL" 
 			value="<c:if test="${ !empty erreurs }"><c:out value="${ utilisateur.email }"/></c:if>">
 			<c:if test="${ !empty erreurs.email }">
 			<span class="erreur">${ erreurs.email }</span>
 			</c:if>
-			<input type="password" required="" class="ggg" name="pass" placeholder="MOT DE PASSE" >
+			<input type="password"  class="ggg" name="pass" placeholder="MOT DE PASSE" >
 			<c:if test="${ !empty erreurs.pass }">
 			<span class="erreur">${ erreurs.pass }</span>
 			</c:if>
-			<label style="font-weight:normal !important;text-align:left;color:#f1aea2;" for="agree">
+			<div><label style="font-weight:normal !important;text-align:left;color:#f1aea2;" for="photo">
 			Photo</label>
-			<input type="file" required="" class="ggg" name="photo" >
+			<input type="file"  class="ggg" name="photo" ></div>
 			<br><br>
-			<h4><input type="checkbox" name="agree" id="agree"/>
+			<h4><input type="checkbox"  name="agree" id="agree"/>
 			<label style="font-weight:normal !important;position: relative;bottom: 15px;left:25px" for="agree">
 			J'accepte les conditions d'utilisation et la politique de confidentialité
 			</label></h4>
+			<div id="erreur_agree"></div>
 			<c:if test="${ !empty erreurs.agree }">
 			<span class="erreur">${ erreurs.agree }</span>
 			</c:if>

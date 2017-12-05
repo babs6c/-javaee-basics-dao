@@ -11,4 +11,6 @@ public interface UtilisateurDao {
 	void add(Utilisateur utilisateur) throws DAOException;
 	
 	Utilisateur trouver(String email, String pass) throws DAOException;
+	
+	Utilisateur trouver(String email) throws DAOException;
 }
