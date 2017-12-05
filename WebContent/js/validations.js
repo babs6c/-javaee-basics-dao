@@ -53,6 +53,44 @@ jQuery(document).ready(function()
 	    				{
 	    				error.insertAfter(element);
 	    				}
-	    			}
+	    			},
+  		
 	});
+	
+	
+	$('#signin').validate({  
+		//Regles de validation
+	    rules: {
+	    	  pass:"required",
+	      email: { 
+	    	  	required :true,
+			email :true,
+	               },
+	    },
+	    //Messages d'erreur
+	     messages:{
+	    	 	pass:"Merci de saisir votre mot de passe",
+	        email:{
+	        	 required: "Merci de saisir une adresse mail",
+            	 email: "Merci de saisir une adresse mail valide",
+            	 	   },
+		           },
+	});
+	
+
+	
+	
+	 $('#agree').change(function() {
+	        if($(this).is(":checked")) 
+	        {
+	        		$("#signup_submit_input").removeAttr('disabled');
+	        }
+	        else
+	        	{
+	        		$("#signup_submit_input").attr("disabled","disabled");
+	        	}
+	    });
+	
+	
+	
 });

@@ -16,19 +16,21 @@
 <link href="css/font-awesome.css" rel="stylesheet"> 
 <!-- //font-awesome icons -->
 <script src="js/jquery2.0.3.min.js"></script>
+<script src="js/validate.js"></script>
+<script src="js/validations.js"></script>
 </head>
 <body>
 <div class="log-w3">
 <div class="w3layouts-main">
 	<h2>Se connecter</h2>
 	<c:if test="${ !empty problemes }"><span class="erreur">${ problemes }</span></c:if>
-		<form action="Login" method="post">
+		<form action="Login" id="signin" method="post">
 			<input type="email" value="<c:choose><c:when test="${ !empty cookie_email }">${ cookie_email }</c:when><c:otherwise><c:out value="${ membre.erreurs.emailvalue }"/></c:otherwise></c:choose>" 
-			class="ggg" name="email" placeholder="E-MAIL" required>
+			class="ggg" name="email" placeholder="E-MAIL" >
 			<c:if test="${ !empty membre.erreurs.email }">
 			<span class="erreur">${ membre.erreurs.email }</span>
 			</c:if>
-			<input type="password" class="ggg" name="pass" placeholder="MOT DE PASSE" required>
+			<input type="password" class="ggg" name="pass" placeholder="MOT DE PASSE" >
 			<c:if test="${ !empty membre.erreurs.pass }">
 			<span class="erreur">${ membre.erreurs.pass }</span>
 			</c:if>

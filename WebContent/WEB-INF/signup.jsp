@@ -52,7 +52,7 @@
 			<span class="erreur">${ erreurs.agree }</span>
 			</c:if>
 				<div class="clearfix"></div>
-				<input type="submit" value="S'inscrire">
+				<input type="submit" disabled id="signup_submit_input" value="S'inscrire">
 		</form>
 		
 			<c:choose>

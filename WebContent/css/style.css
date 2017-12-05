@@ -3156,3 +3156,9 @@ div#graph1, div#graph4, div#graph5, div#graph6, div#graph7, div#graph8, div#grap
 	color:#a20202 ;
 	width:100% !important;
 }
+input[disabled]
+{
+cursor:not-allowed !important;
+background-color: #ccc !important;
+opacity: 1 !important;
+}
