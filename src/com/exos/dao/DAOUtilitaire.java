@@ -10,7 +10,7 @@ public final class DAOUtilitaire {
 
     /*
      * Constructeur caché par défaut (car c'est une classe finale utilitaire,
-     * contenant uniquement des méthodea appelées de manière statique)
+     * contenant uniquement des méthodes appelées de manière statique)
      */
     private DAOUtilitaire() {
     }

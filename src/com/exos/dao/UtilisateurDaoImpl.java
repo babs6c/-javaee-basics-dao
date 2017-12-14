@@ -114,7 +114,7 @@ public class UtilisateurDaoImpl implements UtilisateurDao{
 		
 		try {
 			connexion=daoFactory.getConnection();
-			preparedStatement=DAOUtilitaire.initialisationRequetePreparee(connexion, SQL_ADD_MEMBER, false, utilisateur.getNom(),utilisateur.getEmail(),utilisateur.getPass(),utilisateur.getPhoto());
+			preparedStatement=initialisationRequetePreparee(connexion, SQL_ADD_MEMBER, false, utilisateur.getNom(),utilisateur.getEmail(),utilisateur.getPass(),utilisateur.getPhoto());
 			preparedStatement.executeUpdate();
 			connexion.commit();
 		} catch (SQLException e) {
